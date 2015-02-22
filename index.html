@@ -13,11 +13,11 @@
         setInterval(function(){
           $body.empty();
           var index = streams.home.length - 1;
-          // console.log(streams.home);
-          while(index >= 0){
+          var cutoff=index-10;
+          while(index >= cutoff){
             var tweet = streams.home[index];
             var $tweet = $('<div></div>');
-            $tweet.text(tweet.created_at+'@' + tweet.user + ': ' + tweet.message);
+            $tweet.text(tweet.created_at+'  @' + tweet.user + ': ' + tweet.message);
             $tweet.appendTo($body);
             index -= 1;
           }
