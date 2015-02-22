@@ -11,19 +11,19 @@
     <script>
       $(document).ready(function(){
         var $body = $('body');
-        
+        var previousStreamLength;
         setInterval(function(){
-          // $body.html('<h1> Your stream on Twittler! </h1>');
+          $body.html('<h1> Your stream on Twittler! </h1>');
           // $body.empty();
           var index = streams.home.length - 1;
           var cutoff=index-20;
           // console.log(streams.home[index].created_at.getTime());
-          while(index >= cutoff && index >=0){
+          while (index>=0){
             var tweet = streams.home[index];
-            var $tweet = $('<div>+index+</div>');
+            var $tweet = $('<div></div>');
             // $tweet[name]=index;
             // console.log(new Date().getTime());
-            // console.log($tweet);
+            console.log($tweet);
             var writeup=function(){
               var elapsed=(new Date().getTime()-tweet.created_at.getTime())/1000;
             if (elapsed<10){
@@ -45,14 +45,14 @@
 
             }
           };
-            $tweet.text(index+'indx'+writeup()+'  @' + tweet.user + ': ' + tweet.message);
-            $tweet.appendTo($body);
-            index -= 1;
+            $tweet.text(writeup()+'  @' + tweet.user + ': ' + tweet.message);
+            $tweet.number=index;
             // $( "div" ).remove( ":contains('"+index+"')" );
-            console.log('cutoff',cutoff);
-            $( "div" ).remove( ":contains('"+cutoff+"')" );
+            $tweet.appendTo($body);
+            // $("body").prepend($tweet);
+            index -= 1;
           }
-        },3000);
+        },1000);
 
       });
 
