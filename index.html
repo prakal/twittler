@@ -4,21 +4,26 @@
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
   </head>
+  <title>
+  Twittler
+  </title>
   <body>
     <script>
       $(document).ready(function(){
         var $body = $('body');
         
-        $body.html('');
         setInterval(function(){
-          $body.empty();
+          // $body.html('<h1> Your stream on Twittler! </h1>');
+          // $body.empty();
           var index = streams.home.length - 1;
           var cutoff=index-20;
           // console.log(streams.home[index].created_at.getTime());
           while(index >= cutoff && index >=0){
             var tweet = streams.home[index];
-            var $tweet = $('<div></div>');
+            var $tweet = $('<div>+index+</div>');
+            // $tweet[name]=index;
             // console.log(new Date().getTime());
+            // console.log($tweet);
             var writeup=function(){
               var elapsed=(new Date().getTime()-tweet.created_at.getTime())/1000;
             if (elapsed<10){
@@ -40,11 +45,14 @@
 
             }
           };
-            $tweet.text(writeup()+'  @' + tweet.user + ': ' + tweet.message);
+            $tweet.text(index+'indx'+writeup()+'  @' + tweet.user + ': ' + tweet.message);
             $tweet.appendTo($body);
             index -= 1;
+            // $( "div" ).remove( ":contains('"+index+"')" );
+            console.log('cutoff',cutoff);
+            $( "div" ).remove( ":contains('"+cutoff+"')" );
           }
-        },300);
+        },3000);
 
       });
 
