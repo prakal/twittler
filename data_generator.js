@@ -16,13 +16,13 @@ window.users = Object.keys(streams.users);
 // utility function for adding tweets to our data structures
 var addTweet = function(newTweet){
   var username = newTweet.user;
-  console.log(streams.home.length,username,streams.users[username].length);
-  if (streams.users[username].length>5){
+  // console.log(streams.home.length,username,streams.users[username].length);
+  if (streams.users[username].length>6){
     streams.users[username].shift();
     var i=0;
     while (i<streams.home.length){
       if (streams.home[i].user===username){
-        console.log(i,streams.home[i]);
+        // console.log(i,streams.home[i]);
         streams.home.splice(i,1);
         break;
       }

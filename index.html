@@ -13,11 +13,34 @@
         setInterval(function(){
           $body.empty();
           var index = streams.home.length - 1;
-          var cutoff=index-10;
-          while(index >= cutoff){
+          var cutoff=index-20;
+          // console.log(streams.home[index].created_at.getTime());
+          while(index >= cutoff && index >=0){
             var tweet = streams.home[index];
             var $tweet = $('<div></div>');
-            $tweet.text(tweet.created_at+'  @' + tweet.user + ': ' + tweet.message);
+            // console.log(new Date().getTime());
+            var writeup=function(){
+              var elapsed=(new Date().getTime()-tweet.created_at.getTime())/1000;
+            if (elapsed<10){
+              return "Just now..."
+            }
+            else{
+              if (elapsed<40){
+                return "A few seconds ago";
+              }
+              if (elapsed<70){
+                return "A minute ago";
+              }
+              if (elapsed<120){
+                return "A couple minutes ago";
+              }
+              else{
+                return "A few minutes ago";
+              }
+
+            }
+          };
+            $tweet.text(writeup()+'  @' + tweet.user + ': ' + tweet.message);
             $tweet.appendTo($body);
             index -= 1;
           }
