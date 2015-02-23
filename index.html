@@ -3,6 +3,7 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="underscore.js"></script>
   </head>
   <title>
   Twittler
@@ -74,10 +75,16 @@ div.pre {
           var cutoff=index-20;
           // console.log(streams.home[index].created_at.getTime());
           while (index>=0){
+            $( "div.user" ).click(function() {
+              var onlyUserName=$(this)['context'].textContent.slice(1); 
+              console.log( onlyUserName);
+              console.log(streams.users[onlyUserName]);
+              
+            }); 
             var tweet = streams.home[index];
             var $tweet = $('<div class="post"></div>');
             var $tweetTime = $('<div class="pre"></div>');
-            var $tweetUser = $('<div class="user"></div>');
+            var $tweetUser = $('<div id="'+tweet.user+'" class="user"></div>');
             // $tweet[name]=index;
             // console.log(new Date().getTime());
             // console.log($tweet);
@@ -102,9 +109,11 @@ div.pre {
 
             }
           };
+                             
             $tweetTime.text(writeup());
             $tweet.text(tweet.message);
             $tweetUser.text('@'+tweet.user);
+            
             // $( "div" ).remove( ":contains('"+index+"')" );
             $tweetUser.appendTo($body);
             $tweet.appendTo($body);
@@ -112,6 +121,7 @@ div.pre {
             // $("body").prepend($tweet);
             index -= 1;
           }
+
         },1000);
 
       });
