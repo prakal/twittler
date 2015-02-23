@@ -7,6 +7,61 @@
   <title>
   Twittler
   </title>
+  <style type="text/css">
+  @font-face{
+    font-family: "PoiretOne-Regular";
+    src: url(PoiretOne-Regular.ttf);
+  }
+  div.pre.post.user{
+    background-image: url("linedpaper.png");
+  }
+  body {
+    font-family: "PoiretOne-Regular";
+
+    text-align: center;
+    background-color:beige;
+    background-image: url("paper_blur.jpg");
+}
+    div.post {
+      /*width : 850px;*/
+/*      text-align: center;
+*/      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+/*      background-color:lightgray;
+       opacity: 0.8;
+      /*left:320px;*/
+        /*background-image: url("linedpaper.png");*/
+    }
+div.pre {
+    font-size: 120%;
+/*      text-align: left;
+*/      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+/*      background-color:lightgray;
+*/      opacity: 0.8;
+      right:320px;
+      bottom: 20px;
+    }
+  div.user {
+    /*background-image: url("linedpaper.png");*/
+      font-weight: bold;
+      font-size: 150%;
+/*      text-align: left;
+*/      margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    /*      background-color:lightgray;
+    */      opacity: 0.8;
+        right:50px;
+  }
+    h1   {
+      color:blue;
+      vertical-align: true;
+    }
+    p    {color:green}
+  </style>
   <body>
     <script>
       $(document).ready(function(){
@@ -20,10 +75,12 @@
           // console.log(streams.home[index].created_at.getTime());
           while (index>=0){
             var tweet = streams.home[index];
-            var $tweet = $('<div></div>');
+            var $tweet = $('<div class="post"></div>');
+            var $tweetTime = $('<div class="pre"></div>');
+            var $tweetUser = $('<div class="user"></div>');
             // $tweet[name]=index;
             // console.log(new Date().getTime());
-            console.log($tweet);
+            // console.log($tweet);
             var writeup=function(){
               var elapsed=(new Date().getTime()-tweet.created_at.getTime())/1000;
             if (elapsed<10){
@@ -45,10 +102,13 @@
 
             }
           };
-            $tweet.text(writeup()+'  @' + tweet.user + ': ' + tweet.message);
-            $tweet.number=index;
+            $tweetTime.text(writeup());
+            $tweet.text(tweet.message);
+            $tweetUser.text('@'+tweet.user);
             // $( "div" ).remove( ":contains('"+index+"')" );
+            $tweetUser.appendTo($body);
             $tweet.appendTo($body);
+            $tweetTime.appendTo($body);
             // $("body").prepend($tweet);
             index -= 1;
           }
