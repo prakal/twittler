@@ -24,6 +24,7 @@
     background-image: url("paper_blur.jpg");
 }
     div.post {
+      width:500px;
       /*width : 850px;*/
 /*      text-align: center;
 */      margin-left: auto;
@@ -35,6 +36,7 @@
         /*background-image: url("linedpaper.png");*/
     }
 div.pre {
+  width:200px;
     font-size: 120%;
 /*      text-align: left;
 */      margin-left: auto;
@@ -46,6 +48,7 @@ div.pre {
       bottom: 20px;
     }
   div.user {
+    width:200px;
     /*background-image: url("linedpaper.png");*/
       font-weight: bold;
       font-size: 150%;
@@ -62,28 +65,56 @@ div.pre {
       vertical-align: true;
     }
     p    {color:green}
+    div.tweets {
+      width:500px;
+    font-size: 120%;
+/*      text-align: left;
+*/      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+/*      background-color:lightgray;
+      opacity: 0.8;
+      */
+      left:520px;
+      /*bottom: 20px;*/
+    }
   </style>
   <body>
     <script>
       $(document).ready(function(){
         var $body = $('body');
         var previousStreamLength;
+        $body.html('<h1> Your stream on Twittler... </h1>');
         setInterval(function(){
-          $body.html('<h1> Your stream on Twittler! </h1>');
+          $('.post').remove();
+          $('.pre').remove();
+          $('.user').remove();
           // $body.empty();
           var index = streams.home.length - 1;
-          var cutoff=index-20;
+          var cutoff=index-10;
           // console.log(streams.home[index].created_at.getTime());
-          while (index>=0){
+          while (index>=cutoff && index > 0){
+            // var $usersTweets=$('<div class="tweets"></div>');
+            var triggered=false;
             $( "div.user" ).click(function() {
-              var onlyUserName=$(this)['context'].textContent.slice(1); 
-              console.log( onlyUserName);
-              console.log(streams.users[onlyUserName]);
-              
+              var s;
+              var onlyUserName=$(this)['context'].textContent.slice(1);
+              // console.log('triggered',triggered);
+              if (triggered===false){
+                $('.tweets').remove();
+                // var s="";
+                // console.log( onlyUserName);
+                _.each(streams.users[onlyUserName],function(item){
+                    s+="<div class='tweets'>"+item.message+"</div>";
+                });
+                    console.log(s);
+                    $(s).appendTo($body);
+                    triggered=true;
+                }
             }); 
             var tweet = streams.home[index];
-            var $tweet = $('<div class="post"></div>');
-            var $tweetTime = $('<div class="pre"></div>');
+            var $tweet = $('<div id="post" class="post"></div>');
+            var $tweetTime = $('<div id="pre" class="pre"></div>');
             var $tweetUser = $('<div id="'+tweet.user+'" class="user"></div>');
             // $tweet[name]=index;
             // console.log(new Date().getTime());
