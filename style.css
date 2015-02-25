@@ -12,16 +12,10 @@
     background-image: url("paper_blur.jpg");
   }
   div.pre,div.post,div.user{
-    margin-right:200px;
-    /*bottom:100px;*/
-    /*float: left;*/
-    /*display: inline-block;*/
-    width:200px;
+    width:300px;
     height:auto;
     position:relative;
-    /*right:200px;*/
-/*    z-index: 500;
-*/  }
+  }
   div.combined{
 /*    z-index: -1;*/
     /*bottom:400px;*/
@@ -29,9 +23,11 @@
     float:right;
     text-align:left;
   }
-  
+  div.tweetsTime{
+    opacity: 0.7;
+  }
   div.head   {
-    color:blue; 
+    color:red; 
   }   
   div.post {
     margin-left: auto;
@@ -39,14 +35,12 @@
   }
 
   div.pre {
-    font-size: 120%;
     margin-left: auto;
     margin-right: auto;
-    opacity: 0.8;
-    right: 430px;
-    bottom: 35px;
+    opacity: 0.7;
   }
   div.user {
+
     cursor: pointer;
     font-weight: bold;
     font-size: 150%;
@@ -55,5 +49,25 @@
     opacity: 0.8;
   }
 
- 
+ div.user:hover{
+    color:red;
+ }
+ form{
+  width:400px;
+  left: 360px;
+  position: relative;
+ }
+ div.pre,div.post,div.user{
+  right: 200px;
+ }
+ textarea {
+    resize: none;
+    font-family: inherit;
+   font-size: inherit;
+}
+ textarea#message {
+  width:190px;
+  height:80px;
+  
+ }
 

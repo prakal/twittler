@@ -16,8 +16,31 @@
       $(document).ready(function(){
         var $body = $('body');
         var previousStreamLength;
-        $body.html('<h1> Your stream on Twittler... </h1><form action="">First name:<br><input type="text" name="firstname" value="John"><br></form><input type="submit" value="Submit">');
+        $body.html('<h1> Your stream on Twittler... </h1><form action="">Tweet!<br><textarea id="message" name="message"></textarea><br><input type="submit" value="Submit"></form>');
         setInterval(function(){
+
+          var writeup=function(timestamp){
+            var elapsed=(new Date().getTime()-timestamp.getTime())/1000;
+          if (elapsed<10){
+            return "Just now..."
+          }
+          else{
+            if (elapsed<40){
+              return "A few seconds ago";
+            }
+            if (elapsed<70){
+              return "A minute ago";
+            }
+            if (elapsed<120){
+              return "A couple minutes ago";
+            }
+            else{
+              return "A few minutes ago";
+            }
+
+          }
+        };
+          $('.main').remove();          
           $('.post').remove();
           $('.pre').remove();
           $('.user').remove();
@@ -32,14 +55,15 @@
               var z=$('.head')[0].textContent.slice(1);
               if (triggered2===false){
                 console.log(z);
-                
+                $('.combined').remove();
+                $('.tweetsTime').remove();
                 $('.tweets').remove();
                 $('.head').remove();
                 // $('br').remove();
                 // var s="";
                 // console.log( onlyUserName);
                 _.each(streams.users[z],function(item){
-                    s="<div class='tweets'>"+item.message+"</div>"+s;
+                    s="<div class='tweets'>"+item.message+"</div><div class='tweetsTime'>"+writeup(item.created_at)+"</div>"+s;
                 });
                   s="<div class='combined'><div class='head'>@"+z+"</div>"+s;
                   s+="</div>"
@@ -71,38 +95,19 @@
             // $tweet[name]=index;
             // console.log(new Date().getTime());
             // console.log($tweet);
-            var writeup=function(){
-              var elapsed=(new Date().getTime()-tweet.created_at.getTime())/1000;
-            if (elapsed<10){
-              return "Just now..."
-            }
-            else{
-              if (elapsed<40){
-                return "A few seconds ago";
-              }
-              if (elapsed<70){
-                return "A minute ago";
-              }
-              if (elapsed<120){
-                return "A couple minutes ago";
-              }
-              else{
-                return "A few minutes ago";
-              }
 
-            }
-          };
                              
-            $tweetTime.text(writeup());
+            $tweetTime.text(writeup(tweet.created_at));
             $tweet.text(tweet.message);
             $tweetUser.text('@'+tweet.user);
             
             // $( "div" ).remove( ":contains('"+index+"')" );
-            // $('<div class="main">').appendTo($body);
+            // wrap a div container main around the three items added - maybe later.
+            
             $tweetUser.appendTo($body);
             $tweet.appendTo($body);
             $tweetTime.appendTo($body);
-            // $('</div>').appendTo($body);
+
             // $("body").prepend($tweet);
             index -= 1;
           }
