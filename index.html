@@ -11,43 +11,58 @@
   </title>
   
   <body>
+    
     <script>
       $(document).ready(function(){
         var $body = $('body');
         var previousStreamLength;
-        $body.html('<h1> Your stream on Twittler... </h1>');
+        $body.html('<h1> Your stream on Twittler... </h1><form action="">First name:<br><input type="text" name="firstname" value="John"><br></form><input type="submit" value="Submit">');
         setInterval(function(){
-
-          $('.post').empty();
-          $('.pre').empty();
-          $('.user').empty();
+          $('.post').remove();
+          $('.pre').remove();
+          $('.user').remove();
           // $body.empty();
           var index = streams.home.length - 1;
           var cutoff=index-10;
           // console.log(streams.home[index].created_at.getTime());
+          var triggered2=false;
           while (index>=cutoff && index > 0){
-            var s="";
+            if ($('.head')[0]!= undefined){
+              var s="";
+              var z=$('.head')[0].textContent.slice(1);
+              if (triggered2===false){
+                console.log(z);
+                
+                $('.tweets').remove();
+                $('.head').remove();
+                // $('br').remove();
+                // var s="";
+                // console.log( onlyUserName);
+                _.each(streams.users[z],function(item){
+                    s="<div class='tweets'>"+item.message+"</div>"+s;
+                });
+                  s="<div class='combined'><div class='head'>@"+z+"</div>"+s;
+                  s+="</div>"
+                  // console.log(s);
+                  $(s).appendTo($body);
+                  triggered2=true;
+                }              
+            }
+            
             // var $usersTweets=$('<div class="tweets"></div>');
+
             var triggered=false;
             $( "div.user" ).click(function() {
 
               var onlyUserName=$(this)['context'].textContent.slice(1);
-              // console.log('triggered',triggered);
+              // run this only once, not 9 times.
               if (triggered===false){
-                s="<div class='combined'><div class='head'>@"+onlyUserName+"</div><br>";
-                $('.tweets').empty();
-                $('.head').empty();
-                $('br').remove();
-                // var s="";
-                // console.log( onlyUserName);
-                _.each(streams.users[onlyUserName],function(item){
-                    s+="<div class='tweets'>"+item.message+"</div><br>";
-                });
-                    s+="</div>"
-                    console.log(s);
-                    $(s).appendTo($body);
-                    triggered=true;
-                }
+                // build only head class. the other function takes care of populating tweets
+                s="<div class='head'>@"+onlyUserName+"</div>";
+                $('.head').remove();
+                $(s).appendTo($body);
+                triggered=true;
+              } 
             }); 
             var tweet = streams.home[index];
             var $tweet = $('<div id="post" class="post"></div>');
@@ -83,14 +98,16 @@
             $tweetUser.text('@'+tweet.user);
             
             // $( "div" ).remove( ":contains('"+index+"')" );
+            // $('<div class="main">').appendTo($body);
             $tweetUser.appendTo($body);
             $tweet.appendTo($body);
             $tweetTime.appendTo($body);
+            // $('</div>').appendTo($body);
             // $("body").prepend($tweet);
             index -= 1;
           }
 
-        },1000);
+        },2000);
 
       });
 
