@@ -16,7 +16,7 @@
       $(document).ready(function(){
         var $body = $('body');
         var previousStreamLength;
-        $body.html('<h1> Your stream on Twittler... </h1><form action="">Tweet!<br><textarea id="message" name="message"></textarea><br><input type="submit" value="Submit"></form>');
+        $body.html('<h1> Your stream on Twittler... </h1><form action="">Tweet!<br><textarea id="message" name="message"></textarea><br><input class="rounded" type="submit" value="Submit"></form>');
         setInterval(function(){
 
           var writeup=function(timestamp){
@@ -59,11 +59,10 @@
                 $('.tweetsTime').remove();
                 $('.tweets').remove();
                 $('.head').remove();
-                // $('br').remove();
                 // var s="";
                 // console.log( onlyUserName);
                 _.each(streams.users[z],function(item){
-                    s="<div class='tweets'>"+item.message+"</div><div class='tweetsTime'>"+writeup(item.created_at)+"</div>"+s;
+                    s="<div class='tweets box'>"+item.message+"<div class='tweets tweetsTime'>"+writeup(item.created_at)+"</div></div>"+s;
                 });
                   s="<div class='combined'><div class='head'>@"+z+"</div>"+s;
                   s+="</div>"
@@ -89,25 +88,16 @@
               } 
             }); 
             var tweet = streams.home[index];
-            var $tweet = $('<div id="post" class="post"></div>');
-            var $tweetTime = $('<div id="pre" class="pre"></div>');
-            var $tweetUser = $('<div id="'+tweet.user+'" class="user"></div>');
-            // $tweet[name]=index;
-            // console.log(new Date().getTime());
-            // console.log($tweet);
+            var a='<div class="box main">';
+            a+='<div id="'+tweet.user+'" class="user">@'+tweet.user+'</div>';
+            a+='<div id="post" class="post">'+tweet.message+'</div>';
+            a+='<div id="pre" class="pre">'+writeup(tweet.created_at)+'</div>';
+            a+='</div>';
 
-                             
-            $tweetTime.text(writeup(tweet.created_at));
-            $tweet.text(tweet.message);
-            $tweetUser.text('@'+tweet.user);
-            
             // $( "div" ).remove( ":contains('"+index+"')" );
             // wrap a div container main around the three items added - maybe later.
-            
-            $tweetUser.appendTo($body);
-            $tweet.appendTo($body);
-            $tweetTime.appendTo($body);
 
+            $(a).appendTo($body);
             // $("body").prepend($tweet);
             index -= 1;
           }
