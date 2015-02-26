@@ -16,7 +16,14 @@
       $(document).ready(function(){
         var $body = $('body');
         var previousStreamLength;
-        $body.html('<h1> Your stream on Twittler... </h1><form action="">Tweet!<br><textarea id="message" name="message"></textarea><br><input class="rounded" type="submit" value="Submit"></form>');
+        $body.html('<h1> Your stream on Twittler... </h1><form id="target" action=""><br><textarea id="message" class="textbox" name="message" placeholder="whatever you like"></textarea><br><input class="tweetButton" type="submit" value="Tweet!"></form>');
+        $('#target').submit(function(event){
+            // console.log(event.target[0].value,new Date(event.timeStamp));
+            var newTweet={'created_at':new Date(event.timeStamp),'message':event.target[0].value,'user':'visitor'};
+            streams.home.push(newTweet);
+            console.log(streams.home);
+            event.preventDefault();
+          });
         setInterval(function(){
 
           var writeup=function(timestamp){
@@ -54,7 +61,7 @@
               var s="";
               var z=$('.head')[0].textContent.slice(1);
               if (triggered2===false){
-                console.log(z);
+                // console.log(z);
                 $('.combined').remove();
                 $('.tweetsTime').remove();
                 $('.tweets').remove();
