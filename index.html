@@ -21,7 +21,17 @@
             // console.log(event.target[0].value,new Date(event.timeStamp));
             var newTweet={'created_at':new Date(event.timeStamp),'message':event.target[0].value,'user':'visitor'};
             streams.home.push(newTweet);
-            console.log(streams.home);
+            // console.log(streams.home);
+            if (!streams.users['visitor']){
+              streams.users['visitor']= [newTweet];
+            }
+            else{
+              streams.users['visitor'].push(newTweet);
+              if (streams.users['visitor'].length > 5){
+                streams.users['visitor'].shift();
+              }
+            }
+            // console.log(streams.users);
             event.preventDefault();
           });
         setInterval(function(){
