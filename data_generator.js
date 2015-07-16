@@ -1,16 +1,11 @@
-/*
- * NOTE: This file generates fake tweet data, and is not intended to be part of your implementation.
- * You can safely leave this file untouched, and confine your changes to index.html.
- */
-
 // set up data structures
 window.streams = {};
 streams.home = [];
 streams.users = {};
-streams.users.shawndrost = [];
-streams.users.sharksforcheap = [];
-streams.users.mracus = [];
-streams.users.douglascalhoun = [];
+streams.users.user1 = [];
+streams.users.user2 = [];
+streams.users.user3 = [];
+streams.users.user4 = [];
 window.users = Object.keys(streams.users);
 
 // utility function for adding tweets to our data structures
